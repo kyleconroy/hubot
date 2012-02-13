@@ -3,6 +3,7 @@ Url     = require 'url'
 Log     = require 'log'
 Path    = require 'path'
 Connect = require 'connect'
+HttpClient = require 'scoped-http-client'
 
 User    = require './user'
 Brain   = require './brain'
@@ -191,6 +192,12 @@ class Robot
           app.delete route, callback
 
     @connect.listen process.env.PORT || 8080
+
+    setInterval =>
+      HttpClient.create("http://localhost:#{process.env.PORT || 8080}/hubot/ping")
+        .post() (err, res, bod) =>
+          @logger.info "Keep alive ping!"
+      , 1200000
 
   # Load the adapter Hubot is going to use.
   #
