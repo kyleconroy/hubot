@@ -197,7 +197,7 @@ class Robot
       HttpClient.create("http://localhost:#{process.env.PORT || 8080}/hubot/ping")
         .post() (err, res, bod) =>
           @logger.info "Keep alive ping!"
-      , 1200000
+      , 120000
 
   # Load the adapter Hubot is going to use.
   #
